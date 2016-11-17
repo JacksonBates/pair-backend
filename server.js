@@ -3,8 +3,8 @@ var app = express();
 var mongodb = require( 'mongodb' );
 var mongo = mongodb.MongoClient;
 
-var mongoUserPsw = process.env.MONGO_USER_PSW;
-var url = 'mongodb://' + monogUserPsw + '@ds155737.mlab.com:55737/pair-with-me';
+var mongoUserPsw = process.env.MONGO_USR_PSW;
+var url = 'mongodb://' + mongoUserPsw + '@ds155737.mlab.com:55737/pair-with-me';
 
 mongo.connect( url, function( err, db ) {
   if ( err ) {

@@ -1,7 +1,7 @@
 var router = require( 'express' ).Router();
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({extended: false});
-
+var convertToMS = require( './convertToMS' );
 router.get( '/', ( req, res ) => {
   res.send( 'Route active' );
 })
@@ -11,19 +11,30 @@ router.post( '/add', urlencodedParser, (req, res) => {
   var availableTime = req.body.availableTime;
   var setup = req.body.setup;
   var interests = req.body.interests;
-  console.log('Received: ', username, availableTime, setup, interests);
+  var endTime = convertToMS(availableTime);
+  console.log( 'Received: ', username, availableTime, setup, interests);
   var db = req.db;
   var posts = db.collection( 'posts' );
   posts.insert({
+    postTime: new Date().getTime(),
     username: username,
-    availableTime: availableTime,
+    endTime: new Date().getTime() + endTime,
     setup: setup,
     interests: interests
   });
   res.sendStatus(200);
-  // var db = req.db;
-  // var collection = db.collection( 'posts' );
-  // collection.insert({})
+})
+
+router.get( '/posts', ( req, res ) => {
+  var db = req.db;
+  var posts = db.collection( 'posts' );
+  posts.find({}).toArray( ( err, posts ) => {
+    if (err) {
+      console.error( err );
+    } else {
+      res.json( posts );
+    }
+  })
 })
 
 module.exports = router;

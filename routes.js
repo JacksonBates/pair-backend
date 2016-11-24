@@ -1,3 +1,4 @@
+var ObjectId = require('mongodb').ObjectID;
 var router = require( 'express' ).Router();
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({extended: false});
@@ -35,6 +36,19 @@ router.get( '/posts', ( req, res ) => {
       res.json( posts );
     }
   })
+})
+
+router.post( '/:id', urlencodedParser, (req, res) => {
+  var db = req.db;
+  var id = new ObjectId(req.params.id);
+  var posts = db.collection( 'posts' );
+  try {
+    posts.deleteOne({ '_id': id });
+    console.log('Attempting to delete', id)
+  } catch( err ) {
+    console.log( err );
+  }
+  res.redirect('http://pairboard.surge.sh');
 })
 
 module.exports = router;

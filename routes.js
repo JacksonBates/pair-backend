@@ -29,7 +29,8 @@ router.post( '/add', urlencodedParser, (req, res) => {
 router.get( '/posts', ( req, res ) => {
   var db = req.db;
   var posts = db.collection( 'posts' );
-  posts.find({}).toArray( ( err, posts ) => {
+  var now = new Date().getTime();
+  posts.find({ endTime: { $gt: now }}).toArray( ( err, posts ) => {
     if (err) {
       console.error( err );
     } else {

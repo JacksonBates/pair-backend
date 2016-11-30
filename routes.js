@@ -49,7 +49,7 @@ router.post( '/:id', urlencodedParser, (req, res) => {
   } catch( err ) {
     console.log( err );
   }
-  res.redirect('http://pairboard.surge.sh');
+  res.status(200).send();
 })
 
 module.exports = router;

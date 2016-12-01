@@ -4,7 +4,8 @@
   "description": "A simple backend REST API for a pair programming match-up service.",
   "main": "server.js",
   "scripts": {
-    "test": "mocha"
+    "test": "export NODE_ENV=test || SET \"NODE_ENV=test\" && mocha **/*.test.js",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",

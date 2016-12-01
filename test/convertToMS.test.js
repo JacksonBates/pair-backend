@@ -21,10 +21,6 @@ describe("convertToMS", function(){
   it("Should return 'Invalid Date' when passed undefined", function(){
     convertToMS(undefined).should.equal("Invalid Date");
   })
-  // Checking two parameters
-  it("Should return 'Invalid Date' when passed ('21:20', '1:00')", function(){
-    convertToMS("21:20", "1:00").should.equal("Invalid Date");
-  })
 
   // Checking for invalid formats
   it("Should return 'Invalid Date' when passed '0120'", function(){

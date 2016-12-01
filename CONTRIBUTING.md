@@ -14,7 +14,16 @@ The good news is, even the most beginner level contributor can feel right at hom
 
 ## Getting started
 
-+ Fork this repo before making any changes - you will be initially pushing commits to your fork, not this repo.
++ Fork this repo before making any changes - you will be initially pushing commits to your fork, not this repo.  
++ In folder `config` copy and rename the file `config_template.json` to `config.json`, but don't alter and don't delete `config_template.json`. You can then change `PORT` and `MONGODB_URI` values in your `config.json` if you need to (e.g. `"PORT": 5555`)  
+  Your `config` folder should look like this:  
+  ```
+  config  
+    
+    |- config.js  
+    |- config.json  
+    |- config_template.json  
+   ```
 + Create issues on **this** repo, not your fork, if you encounter bugs, non-ideal behaviour/css, or wish to request features.
 
 ## Your first PR (pull request)
@@ -50,38 +59,38 @@ To keep things beginner friendly, you can make a completely innocuous contributi
     `git branch`  
     you should see `* master` and the second branch you created previously
   + now delete that second branch:  
-    `git branch -d <name-of-the-branch>`
+    `git branch -D <name-of-the-branch>`
   + delete second branch from your GitHub:  
     `git push origin --delete <name-of-the-branch>`
 
 ## How to sync your local repo with the original repo
 
-This setup should be done only once for the repo.  
-[source](https://help.github.com/articles/configuring-a-remote-for-a-fork/)  
++ This setup should be done only once for the repo.  
+  [source](https://help.github.com/articles/configuring-a-remote-for-a-fork/)  
+  + List the current configured remote repository for your fork:  
+    `git remote -v`  
+    You should see two links with `origin` in front of them.  
+    The links will begin either with `https` or `git@`
+  + Specify a new remote upstream repository that will be synced with the fork:  
+    `git remote add upstream https://github.com/JacksonBates/pair-backend.git`  
+    or  
+    `git remote add upstream git@github.com:JacksonBates/pair-backend.git`  
+    depending on which protocol you saw in the first step.
+  + Verify the new upstream repository you've specified for your fork:  
+    `git remote -v`  
+    now you should see four links: two `origin` and two `upstream`  
 
-+ List the current configured remote repository for your fork:  
-  `git remote -v`  
-  You should see two links with `origin` in front of them.  
-  The links will begin either with `https` or `git@`
-+ Specify a new remote upstream repository that will be synced with the fork:  
-  `git remote add upstream https://github.com/JacksonBates/pair-backend.git`  
-  or  
-  `git remote add upstream git@github.com:JacksonBates/pair-backend.git`  
-  depending on which protocol you saw in the first step.
-+ Verify the new upstream repository you've specified for your fork:  
-  `git remote -v`  
-  now you should see four links: two `origin` and two `upstream`
 
-This should be done to check for updates on the remote repo:  
-[source](https://help.github.com/articles/syncing-a-fork/)
-+ Get data from original repo:  
-  `git fetch upstream`  
-+ Switch to the `master` branch of your local repo:  
-  `git checkout master`
-+ Merge changes from the original repo into your local `master` branch:  
-  `git merge upstream/master`
-+ Now push changes to your GitHub repo:  
-  `git push`
++ This should be done to check for updates on the remote repo:  
+  [source](https://help.github.com/articles/syncing-a-fork/)
+  + Get data from original repo:  
+    `git fetch upstream`  
+  + Switch to the `master` branch of your local repo:  
+    `git checkout master`
+  + Merge changes from the original repo into your local `master` branch:  
+    `git merge upstream/master`
+  + Now push changes to your GitHub repo:  
+    `git push`
 
 Now your local repo and your GitHub repo is up to date with the original repo you forked from.
 

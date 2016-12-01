@@ -1,5 +1,5 @@
 var should = require("chai").should();
-var convertToMS = require("../convertToMS");
+var convertToMS = require("../controllers/convertToMS");
 
 // NOTE: correct format /\d{1,2}:\d{2}/
 

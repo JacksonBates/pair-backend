@@ -15,7 +15,15 @@ The good news is, even the most beginner level contributor can feel right at hom
 ## Getting started
 
 + Fork this repo before making any changes - you will be initially pushing commits to your fork, not this repo.  
-+ In folder `config` rename the file `config_template.json` to `config.json`. You can change `PORT` and `MONGODB_URI` values if you need to (e.g. `"PORT": 5555`) 
++ In folder `config` copy and rename the file `config_template.json` to `config.json`, but don't alter and don't delete `config_template.json`. You can then change `PORT` and `MONGODB_URI` values in your `config.json` if you need to (e.g. `"PORT": 5555`)  
+  Your `config` folder should look like this:  
+  ```
+  config  
+    
+    |- config.js  
+    |- config.json  
+    |- config_template.json  
+   ```
 + Create issues on **this** repo, not your fork, if you encounter bugs, non-ideal behaviour/css, or wish to request features.
 
 ## Your first PR (pull request)

@@ -23,7 +23,7 @@ router.post( '/add', urlencodedParser, (req, res) => {
     setup: setup,
     interests: interests
   });
-  res.status(200).send();
+  res.redirect( 'http://pairboard.surge.sh' );
 })
 
 router.get( '/posts', ( req, res ) => {
@@ -49,7 +49,7 @@ router.post( '/:id', urlencodedParser, (req, res) => {
   } catch( err ) {
     console.log( err );
   }
-  res.status(200).send();
+  res.redirect( 'http://pairboard.surge.sh' );
 })
 
 module.exports = router;

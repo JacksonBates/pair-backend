@@ -1,22 +1,23 @@
+require('./config/config.js');
+
 var express = require( 'express' );
 var app = express();
 var mongodb = require( 'mongodb' );
 var mongo = mongodb.MongoClient;
 
-var mongoUserPsw = process.env.MONGO_USR_PSW;
-var url = 'mongodb://' + mongoUserPsw + '@ds155737.mlab.com:55737/pair-with-me';
+var url = process.env.MONGODB_URI;
 
 mongo.connect( url, function( err, db ) {
   if ( err ) {
     console.log( 'Error: Could not connect to DB' );
   } else {
     console.log( 'Success: Connected to DB' );
-    
+
     app.use( function( req, res, next) {
       req.db = db;
       next();
     });
-    
+
     // Source: http://stackoverflow.com/questions/18310394/no-access-control-allow-origin-node-apache-port-issue
     // Add headers
     app.use(function (req, res, next) {
@@ -42,7 +43,7 @@ mongo.connect( url, function( err, db ) {
   }
 
   app.set( 'port', ( process.env.PORT || 5000 ));
-  
+
   app.listen( app.get( 'port' ), function() {
     console.log( 'Node app is running on port ', app.get( 'port' ) );
   });

@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "export NODE_ENV=test || SET \"NODE_ENV=test\" && mocha **/*.test.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "mocha": "^3.2.0"
+    "mocha": "^3.2.0",
+    "nodemon": "^1.11.0"
   }
 }

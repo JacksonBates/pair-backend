@@ -60,7 +60,10 @@ module.exports = {
       endTime: new Date().getTime() + endTime,
       username, setup, interests
     });
-    newPost.save( err => { res.status( 400 ).send( { status: 400, error: err })});
+    newPost.save( err => { 
+      if (err) res.status( 400 ).send( { status: 400, error: err });
+      res.status( 201 ).send( { status: 201, data: newPost });
+    });
   },
 
   // DELETE /posts/:id

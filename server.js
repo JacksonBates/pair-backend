@@ -2,49 +2,49 @@ require('./config/config.js');
 
 var express = require( 'express' );
 var app = express();
+var mongoose = require( 'mongoose' );
 var mongodb = require( 'mongodb' );
 var mongo = mongodb.MongoClient;
 
+var Post = require( './models/post.model' );
+
 var url = process.env.MONGODB_URI;
 
-mongo.connect( url, function( err, db ) {
-  if ( err ) {
-    console.log( 'Error: Could not connect to DB' );
-  } else {
-    console.log( 'Success: Connected to DB' );
+mongoose.connect( url );
 
-    app.use( function( req, res, next) {
-      req.db = db;
-      next();
-    });
-
-    // Source: http://stackoverflow.com/questions/18310394/no-access-control-allow-origin-node-apache-port-issue
-    // Add headers
-    app.use(function (req, res, next) {
-
-    // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', '*');
-
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE');
-
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
-    res.setHeader('Access-Control-Allow-Credentials', true);
-
-    // Pass to next layer of middleware
-    next();
-    });
-
-    app.use( '/api/v1', require( './routes' ));
-  }
-
-  app.set( 'port', ( process.env.PORT || 5000 ));
-
-  app.listen( app.get( 'port' ), function() {
-    console.log( 'Node app is running on port ', app.get( 'port' ) );
-  });
+var db = mongoose.connection;
+db.on( 'error', console.error.bind( console, 'connection error:' ));
+db.once( 'open', function() {
+  console.log( 'DB Connected' );
 });
+
+// Add headers
+// Source: http://stackoverflow.com/questions/18310394/no-access-control-allow-origin-node-apache-port-issue
+app.use(function (req, res, next) {
+
+  // Currently allows access from any origin
+  res.setHeader('Access-Control-Allow-Origin', '*');
+
+  // Request methods you wish to allow
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE');
+
+  // Request headers you wish to allow
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+  // Set to true if you need the website to include cookies in the requests sent
+  // to the API (e.g. in case you use sessions)
+  res.setHeader('Access-Control-Allow-Credentials', true);
+
+  // Pass to next layer of middleware
+  next();
+});
+
+// Middleware for routes
+app.use( '/api/v1', require( './routes' ));
+
+app.set( 'port', ( process.env.PORT || 3000 ));
+app.listen( app.get( 'port' ), function() {
+console.log( 'Node app is running on port ', app.get( 'port' ) );
+});
+
+module.exports = app;

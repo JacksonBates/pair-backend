@@ -2,9 +2,9 @@ var mongoose = require( 'mongoose' );
 var Schema = mongoose.Schema;
 
 var PostSchema = new Schema({
-  postTime: Number,
-  username: String,
-  endTime: Number,
+  postTime: { type: Number, required: true },
+  username: { type: String, required: true },
+  endTime: { type: Number, required: true },
   setup: Schema.Types.Mixed,
   interests: String
 })

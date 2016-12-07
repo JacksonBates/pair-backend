@@ -12,6 +12,8 @@ The good news is, even the most beginner level contributor can feel right at hom
 + [Git installed on your system](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 + [Node/NPM](https://nodejs.org/en/)
 + [MongoDB](https://www.mongodb.com/download-center)
++ Windows users should use `gitbash` as their terminal for working with Git.
++ Mac and Linux users can use any terminal they prefer.
 + A can-do attitude
 
 ## Getting started
@@ -32,6 +34,15 @@ The good news is, even the most beginner level contributor can feel right at hom
 
 To keep things beginner friendly, you can make a completely innocuous contribution first. You can add a comment to FIRST_PR_CLUB.md!
 
++ On your forked verision of the repo on GitHub, click the green 'clone or download' button and copy the link.
+  + The link will look something like this: `https://github.com/jacksonbates/pair-backend.git` (but with your username, not mine)
++ In the terminal write the following command to clone the repo. This will give you a local copy to work on:
+  + `git clone <paste-the-link-of-your-repo.git-here>`
+  + eg: `git clone https://github.com/jacksonbates/pair-backend.git`
++ In your terminal navigate to the folder that was just created.
+  + The command for this is `cd`
+  + eg: `cd pair-backend`
++ If your version of the repo is ever out of sync with the original repo, i.e. there are new commits on the master branch of the original that you don't have, you need to sync your repo before adding your contributions. **See below, in the section called 'How to sync your local repo with the original repo' for details**
 + On your fork of this repo, locate the FIRST_PR_CLUB markdown file. It's in the root folder.
 + **Create a new branch to work on** (you'll do this for your real contributions, too).
   + At the terminal, in the correct folder, run `git checkout -b <new-branch-name>`

@@ -25,7 +25,7 @@ if ( !process.env.NODE_ENV === 'test' ) {
 app.use(function (req, res, next) {
 
   // Currently allows access from any origin
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Origin', 'http://pairboard.surge.sh');
 
   // Request methods you wish to allow
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE');

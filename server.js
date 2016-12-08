@@ -14,9 +14,11 @@ mongoose.connect( url );
 
 var db = mongoose.connection;
 db.on( 'error', console.error.bind( console, 'connection error:' ));
-db.once( 'open', function() {
-  console.log( 'DB Connected' );
-});
+if ( !process.env.NODE_ENV === 'test' ) {
+  db.once( 'open', function() {
+    console.log( 'DB Connected' );
+  })
+};
 
 // Add headers
 // Source: http://stackoverflow.com/questions/18310394/no-access-control-allow-origin-node-apache-port-issue
@@ -44,7 +46,9 @@ app.use( '/api/v1', require( './routes' ));
 
 app.set( 'port', ( process.env.PORT || 3000 ));
 app.listen( app.get( 'port' ), function() {
-console.log( 'Node app is running on port ', app.get( 'port' ) );
+  if ( !process.env.NODE_ENV === 'test') {
+    console.log( 'Node app is running on port ', app.get( 'port' ) );
+  }
 });
 
 module.exports = app;

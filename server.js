@@ -20,6 +20,9 @@ if ( !process.env.NODE_ENV === 'test' ) {
   })
 };
 
+// Disable x-powered-by header which shows what software server is running (express);
+app.disable('x-powered-by');
+
 // Add headers
 // Source: http://stackoverflow.com/questions/18310394/no-access-control-allow-origin-node-apache-port-issue
 app.use(function (req, res, next) {

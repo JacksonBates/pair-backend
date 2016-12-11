@@ -55,6 +55,8 @@ module.exports = {
   addPost: ( req, res ) => {
     const { username, availableTime, setup, interests } = req.body;
     if ( !username || !availableTime ) return res.status( 400 ).send( { status: 400, error: "Missing parameters." });
+    if ( setup && typeof setup !== 'object') return res.status( 400 ).send( { status: 400, error: "Setup should be an array." });
+    if ( interests && typeof interests !== 'string') return res.status( 400 ).send( { status: 400, error: "Interests should be a string." });
     const endTime = convertToMS( availableTime );
     const newPost = Post({
       postTime: new Date().getTime(),

@@ -6,8 +6,8 @@ var PostSchema = new Schema({
   postTime: { type: Number, required: true },
   username: { type: String, required: true },
   endTime: { type: Number, required: true },
-  setup: Schema.Types.Mixed,
-  interests: String
+  setup: { type: Schema.Types.Mixed, default: [] },
+  interests: { type: String, default: '' }
 })
 
 module.exports = mongoose.model('Post', PostSchema);

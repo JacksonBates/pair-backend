@@ -1,7 +1,10 @@
-require('./config/config.js');
+require( './config/config.js' );
 
 var express = require( 'express' );
 var app = express();
+var server = require( 'http' ).createServer( app );
+var io = require( 'socket.io' );
+io = io.listen( server );
 var mongoose = require( 'mongoose' );
 var mongodb = require( 'mongodb' );
 var mongo = mongodb.MongoClient;
@@ -47,11 +50,29 @@ app.use(function (req, res, next) {
 // Middleware for routes
 app.use( '/api/v1', require( './routes' ));
 
-app.set( 'port', ( process.env.PORT || 3000 ));
-app.listen( app.get( 'port' ), function() {
+app.set( 'port', ( process.env.PORT || 3001 ));
+server.listen( app.get( 'port' ), function() {
   if ( !process.env.NODE_ENV === 'test') {
     console.log( 'Node app is running on port ', app.get( 'port' ) );
   }
+});
+
+io.sockets.on( 'connection', socket => {
+    console.log( 'client connected', socket.id );
+    socket.on( 'post', data => {
+      socket.broadcast.emit( 'post', { post: data });
+    });
+    socket.on( 'delete', data => {
+      console.log( 'deleting: ', data);
+      socket.broadcast.emit( 'delete', { delete: data });
+    });
+    // We're connected to someone now. Let's listen for events from them
+    // socket.on('some event', function(data) {
+    //     // We've received some data. Let's just log it
+    //     console.log(data);
+    //     // Now let's reply
+    //     socket.emit('event', {some: "data"});
+    // });
 });
 
 module.exports = app;

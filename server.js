@@ -31,7 +31,7 @@ app.disable('x-powered-by');
 app.use(function (req, res, next) {
 
   // Currently allows access from any origin
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Origin', 'http://pairboard.surge.sh');
 
   // Request methods you wish to allow
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE');

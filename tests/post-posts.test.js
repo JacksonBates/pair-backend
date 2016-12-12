@@ -34,7 +34,7 @@ describe('POST /posts', () => {
         expect(res.body.data.setup).toExist();
         expect(res.body.data.setup).toBeA('array');
         expect(res.body.data.setup.length).toBe(0);
-        expect(res.body.data.interests).toExist();
+        expect(res.body.data.interests).toBe('');
         expect(res.body.data.interests).toBeA('string');
         expect(res.body.data.interests.length).toBe(0);
       })
@@ -83,20 +83,96 @@ describe('POST /posts', () => {
   });
 
   it('should respond with 400 if username missing', (done) => {
-    // TODO
-    throw new Error;
-    done();
+    const newPost = {
+      availableTime: '1:00',
+    }
+
+    request(app)
+      .post('/api/v1/posts')
+      .send(newPost)
+      .expect(400)
+      .expect(res => {
+        // Check response
+        expect(res.body.status).toExist();
+        expect(res.body.status).toBe(400);
+        expect(res.body.error).toExist();
+        expect(res.body.error).toBeA('string');
+        expect(res.body.data).toNotExist();
+      })
+      .end((err, res) => {
+        if (err) return done(err);
+        // Check db
+        Post.find().then(res => {
+          expect(res.length).toBe(3);
+        }).catch(e => done(e));
+        Post.find({availableTime: newPost.availableTime}).then(res => {
+          expect(res.length).toBe(0);
+          done();
+        }).catch(e => done(e));
+     });
   });
 
   it('should respond with 400 if setup is not an array', (done) => {
-    // TODO
-    throw new Error;
-    done();
+    const newPost = {
+      username: 'Gauja',
+      availableTime: '1:00',
+      setup: 123
+    }
+
+    request(app)
+      .post('/api/v1/posts')
+      .send(newPost)
+      .expect(400)
+      .expect(res => {
+        // Check response
+        expect(res.body.status).toExist();
+        expect(res.body.status).toBe(400);
+        expect(res.body.error).toExist();
+        expect(res.body.error).toBeA('string');
+        expect(res.body.data).toNotExist();
+      })
+      .end((err, res) => {
+        if (err) return done(err);
+        // Check db
+        Post.find().then(res => {
+          expect(res.length).toBe(3);
+        }).catch(e => done(e));
+        Post.find({username: newPost.username}).then(res => {
+          expect(res.length).toBe(0);
+          done();
+        }).catch(e => done(e));
+      });
   });
 
   it('should respond with 400 if interests is not a string', (done) => {
-    // TODO
-    throw new Error;
-    done();
+    const newPost = {
+      username: 'Gauja',
+      availableTime: '1:00',
+      interests: 123
+    }
+
+    request(app)
+      .post('/api/v1/posts')
+      .send(newPost)
+      .expect(400)
+      .expect(res => {
+        // Check response
+        expect(res.body.status).toExist();
+        expect(res.body.status).toBe(400);
+        expect(res.body.error).toExist();
+        expect(res.body.error).toBeA('string');
+        expect(res.body.data).toNotExist();
+      })
+      .end((err, res) => {
+        if (err) return done(err);
+        // Check db
+        Post.find().then(res => {
+          expect(res.length).toBe(3);
+        }).catch(e => done(e));
+        Post.find({username: newPost.username}).then(res => {
+          expect(res.length).toBe(0);
+          done();
+        }).catch(e => done(e));
+      });
   })
 });

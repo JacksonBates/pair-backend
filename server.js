@@ -29,7 +29,7 @@ app.disable('x-powered-by');
 app.use( require( './middleware/access-control-header' ));
 
 // Middleware for routes
-app.use( '/api/v1', require( './api-v1' ));
+app.use( '/api/v1', require( './routes/api-v1' ));
 
 app.set( 'port', ( process.env.PORT || 3001 ));
 server.listen( app.get( 'port' ), function() {
